@@ -20,8 +20,8 @@ const AdminLoginPage = () => {
 
     return (
         <div className="auth-container">
-            <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', color: '#111827' }}>Admin Access</h1>
-            <p style={{ color: '#6B7280', marginBottom: '2rem', fontWeight: '600' }}>
+            <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 800 }}>Admin Access</h1>
+            <p style={{ color: 'var(--color-text-secondary)', marginBottom: '2rem', fontWeight: '600' }}>
                 Secure Dashboard Access Only
             </p>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

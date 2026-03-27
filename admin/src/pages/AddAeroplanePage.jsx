@@ -45,11 +45,11 @@ const AddAeroplanePage = () => {
                     
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                         <div style={{display: 'flex', flexDirection: 'column'}}>
-                            <label style={{fontSize: '0.8rem', color: '#666', marginBottom: '0.2rem'}}>Departs (Min: Tomorrow)</label>
+                            <label style={{fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: '0.2rem'}}>Departs (Min: Tomorrow)</label>
                             <input name="date" type="date" min={minDate} value={formData.date} onChange={handleChange} required className="form-input" />
                         </div>
                         <div style={{display: 'flex', flexDirection: 'column'}}>
-                            <label style={{fontSize: '0.8rem', color: '#666', marginBottom: '0.2rem'}}>Departure Time</label>
+                            <label style={{fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: '0.2rem'}}>Departure Time</label>
                             <input name="departureTime" type="time" placeholder="Departure Time" value={formData.departureTime} onChange={handleChange} required className="form-input" />
                         </div>
                     </div>

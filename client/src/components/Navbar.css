@@ -2,17 +2,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.85);
-    /* White glass */
-    backdrop-filter: blur(16px);
-    /* Glass effect */
+    background: rgba(11, 17, 32, 0.85);
+    backdrop-filter: blur(20px) saturate(1.5);
     padding: 1rem 3rem;
     color: var(--color-text-primary);
-    border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.08);
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-logo a {
@@ -24,16 +22,21 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: var(--gradient-primary);
+    background: var(--gradient-glow);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: filter var(--transition-fast);
+}
+
+.navbar-logo a:hover {
+    filter: brightness(1.2);
 }
 
 .navbar-links {
     list-style: none;
     display: flex;
-    gap: 2rem;
+    gap: 0.5rem;
     margin: 0;
     padding: 0;
     align-items: center;
@@ -46,16 +49,17 @@
 .navbar-links a {
     color: var(--color-text-secondary);
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     transition: all var(--transition-fast);
     padding: 0.5rem 1rem;
     border-radius: var(--radius-md);
+    position: relative;
 }
 
 .navbar-links a:hover {
-    color: var(--color-accent);
-    background-color: var(--color-bg-primary);
+    color: var(--color-accent-hover);
+    background: rgba(6, 182, 212, 0.08);
 }
 
 .navbar-links button {
@@ -66,13 +70,13 @@
     cursor: pointer;
     border-radius: var(--radius-md);
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     transition: all var(--transition-fast);
-    box-shadow: var(--shadow-red);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
 }
 
 .navbar-links button:hover {
     background: var(--gradient-hover);
     transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
 }

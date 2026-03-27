@@ -71,7 +71,7 @@ const MyBookingsPage = () => {
                                     <p className="price">Paid: ${booking.vehicle?.price || '0'}</p>
                                     
                                     {!canCancel && booking.vehicle && (
-                                        <p style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '0.5rem' }}>
+                                        <p style={{ color: 'var(--color-danger)', fontSize: '0.8rem', marginTop: '0.5rem' }}>
                                             Cancellation unavailable (Departs in less than 24 hours)
                                         </p>
                                     )}
@@ -81,10 +81,12 @@ const MyBookingsPage = () => {
                                     disabled={!canCancel}
                                     className={`form-button ${canCancel ? 'btn-red' : 'btn-disabled'}`}
                                     style={{ 
-                                        backgroundColor: canCancel ? '#ef4444' : '#ccc', 
-                                        color: '#fff',
+                                        background: canCancel ? 'linear-gradient(135deg, #f43f5e, #e11d48)' : 'var(--color-bg-tertiary)', 
+                                        color: canCancel ? '#fff' : 'var(--color-text-secondary)',
                                         cursor: canCancel ? 'pointer' : 'not-allowed',
-                                        marginTop: 'auto'
+                                        marginTop: 'auto',
+                                        boxShadow: canCancel ? '0 0 15px rgba(244, 63, 94, 0.3)' : 'none',
+                                        border: 'none'
                                     }}
                                 >
                                     Cancel Booking

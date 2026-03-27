@@ -45,15 +45,15 @@ const ForgotPasswordPage = () => {
                 </button>
             </form>
 
-            {message && <p style={{ marginTop: '1rem', color: mockLink ? '#10b981' : '#ef4444' }}>{message}</p>}
+            {message && <p style={{ marginTop: '1rem', color: mockLink ? 'var(--color-success)' : 'var(--color-danger)' }}>{message}</p>}
 
             {/* MOCK EMAIL DISPLAY */}
             {mockLink && (
-                <div style={{ marginTop: '2rem', padding: '1rem', background: '#e0f2fe', borderRadius: '8px', border: '1px solid #7dd3fc', textAlign: 'left' }}>
-                    <h4 style={{ color: '#0369a1', margin: '0 0 0.5rem 0' }}>📧 Mock Email Received!</h4>
-                    <p style={{ margin: 0, fontSize: '0.9rem', color: '#0c4a6e' }}>
+                <div style={{ marginTop: '2rem', padding: '1rem', background: 'rgba(6, 182, 212, 0.08)', borderRadius: '12px', border: '1px solid rgba(6, 182, 212, 0.2)', textAlign: 'left' }}>
+                    <h4 style={{ color: 'var(--color-accent-hover)', margin: '0 0 0.5rem 0' }}>📧 Mock Email Received!</h4>
+                    <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
                         Click the secure link below to reset your password:<br/>
-                        <a href={mockLink} style={{ color: '#0284c7', fontWeight: 'bold', wordBreak: 'break-all', display: 'inline-block', marginTop: '0.5rem' }}>
+                        <a href={mockLink} style={{ color: 'var(--color-accent)', fontWeight: 'bold', wordBreak: 'break-all', display: 'inline-block', marginTop: '0.5rem' }}>
                             {mockLink}
                         </a>
                     </p>
