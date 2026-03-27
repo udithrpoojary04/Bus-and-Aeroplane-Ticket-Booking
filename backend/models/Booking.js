@@ -7,8 +7,8 @@ const bookingSchema = mongoose.Schema({
     bookingDate: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-// Optimistic Concurrency Control could be used, or just relying on the Vehicle.bookedSeats atomic update.
-// We'll trust the controller logic to handle the atomic check on Vehicle first.
+// Compound index to prevent duplicate seat bookings
+bookingSchema.index({ vehicle: 1, seatNumber: 1 }, { unique: true });
 
 const Booking = mongoose.model('Booking', bookingSchema);
 

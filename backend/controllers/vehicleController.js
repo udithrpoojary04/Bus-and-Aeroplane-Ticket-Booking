@@ -38,10 +38,19 @@ const getVehicles = asyncHandler(async (req, res) => {
 
     if (from) query.from = { $regex: from, $options: 'i' };
     if (to) query.to = { $regex: to, $options: 'i' };
-    if (date) query.date = date; // Expects Exact Date Match or range if needed. For now exact.
     if (type) query.type = type;
 
-    const vehicles = await Vehicle.find(query);
+    if (date) {
+        // If user searches a specific date, show that date only (must still be future)
+        query.date = date;
+    } else {
+        // By default, only show vehicles departing AFTER today
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        query.date = { $gt: today };
+    }
+
+    const vehicles = await Vehicle.find(query).sort({ date: 1 });
     res.json(vehicles);
 });
 

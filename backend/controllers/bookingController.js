@@ -2,41 +2,59 @@ const asyncHandler = require('express-async-handler');
 const Booking = require('../models/Booking');
 const Vehicle = require('../models/Vehicle');
 
-// @desc    Create new booking
+// @desc    Create new booking (supports multiple seats)
 // @route   POST /api/bookings
 // @access  Private
 const createBooking = asyncHandler(async (req, res) => {
-    const { vehicleId, seatNumber } = req.body;
+    const { vehicleId, seatNumber, seatNumbers } = req.body;
 
-    // Atomic check and update
-    // We try to find the vehicle and push the seatNumber to bookedSeats 
-    // ONLY IF the seatNumber is NOT already in bookedSeats.
+    // Support both single seat (legacy) and multiple seats
+    const seatsToBook = seatNumbers || (seatNumber ? [seatNumber] : []);
+
+    if (seatsToBook.length === 0) {
+        res.status(400);
+        throw new Error('Please select at least one seat');
+    }
+
+    if (seatsToBook.length > 6) {
+        res.status(400);
+        throw new Error('Maximum 6 seats can be booked at a time');
+    }
+
+    // Atomic check: ensure none of the seats are already booked
     const vehicle = await Vehicle.findOneAndUpdate(
-        { _id: vehicleId, bookedSeats: { $ne: seatNumber } },
-        { $push: { bookedSeats: seatNumber } },
-        { new: true } // return updated doc
+        { 
+            _id: vehicleId, 
+            bookedSeats: { $nin: seatsToBook } // none of the seats should be in bookedSeats
+        },
+        { $push: { bookedSeats: { $each: seatsToBook } } },
+        { new: true }
     );
 
     if (!vehicle) {
         res.status(400);
-        throw new Error('Seat already booked or vehicle not found');
+        throw new Error('One or more seats are already booked, or vehicle not found. Please refresh and try again.');
     }
 
-    // If successful, create the Booking record
-    const booking = await Booking.create({
-        user: req.user._id,
-        vehicle: vehicleId,
-        seatNumber,
-    });
+    // Create individual booking records for each seat
+    try {
+        const bookingPromises = seatsToBook.map(seat =>
+            Booking.create({
+                user: req.user._id,
+                vehicle: vehicleId,
+                seatNumber: seat,
+            })
+        );
 
-    if (booking) {
-        res.status(201).json(booking);
-    } else {
-        // Rollback bookedSeats if booking creation fails?
-        // Unlikely, but good practice.
-        await Vehicle.findByIdAndUpdate(vehicleId, { $pull: { bookedSeats: seatNumber } });
+        const bookings = await Promise.all(bookingPromises);
+        res.status(201).json(bookings);
+    } catch (error) {
+        // Rollback: remove seats from vehicle if booking creation fails
+        await Vehicle.findByIdAndUpdate(vehicleId, { 
+            $pull: { bookedSeats: { $in: seatsToBook } } 
+        });
         res.status(400);
-        throw new Error('Invalid booking data');
+        throw new Error('Failed to create bookings. Seats have been released.');
     }
 });
 
@@ -44,9 +62,7 @@ const createBooking = asyncHandler(async (req, res) => {
 // @route   GET /api/bookings/mybookings
 // @access  Private
 const getMyBookings = asyncHandler(async (req, res) => {
-    console.log('Fetching bookings for user:', req.user?._id);
     const bookings = await Booking.find({ user: req.user._id }).populate('vehicle');
-    console.log('Found bookings:', bookings.length);
     res.json(bookings);
 });
 

@@ -10,6 +10,11 @@ const AeroplanePage = () => {
     const [vehicles, setVehicles] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    // Tomorrow's date as minimum for search
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const minDate = tomorrow.toISOString().split('T')[0];
+
     // Initial fetch for all planes
     useEffect(() => {
         fetchPlanes();
@@ -55,6 +60,7 @@ const AeroplanePage = () => {
                 <input
                     type="date"
                     value={date}
+                    min={minDate}
                     onChange={(e) => setDate(e.target.value)}
                     className="form-input"
                 />
@@ -76,7 +82,8 @@ const AeroplanePage = () => {
                                         <p><strong>Flight ID:</strong> {vehicle.aeroplaneId || 'N/A'}</p>
                                         <p><strong>Date:</strong> {new Date(vehicle.date).toLocaleDateString()}</p>
                                         <p><strong>Time:</strong> {vehicle.departureTime}</p>
-                                        <p className="price">${vehicle.price}</p>
+                                        <p><strong>Seats Available:</strong> {vehicle.totalSeats - (vehicle.bookedSeats?.length || 0)} / {vehicle.totalSeats}</p>
+                                        <p className="price">₹{vehicle.price}</p>
                                     </div>
                                     <button
                                         onClick={() => navigate(`/book/${vehicle._id}`)}
