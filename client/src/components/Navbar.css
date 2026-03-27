@@ -1,0 +1,78 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.85);
+    /* White glass */
+    backdrop-filter: blur(16px);
+    /* Glass effect */
+    padding: 1rem 3rem;
+    color: var(--color-text-primary);
+    border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar-logo a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.navbar-links li {
+    display: flex;
+}
+
+.navbar-links a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+}
+
+.navbar-links a:hover {
+    color: var(--color-accent);
+    background-color: var(--color-bg-primary);
+}
+
+.navbar-links button {
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.25rem;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-red);
+}
+
+.navbar-links button:hover {
+    background: var(--gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.4);
+}
