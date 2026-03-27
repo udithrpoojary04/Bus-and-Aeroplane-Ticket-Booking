@@ -71,7 +71,7 @@ const MyBookingsPage = () => {
                                     <p className="price">Paid: ${booking.vehicle?.price || '0'}</p>
                                     
                                     {!canCancel && booking.vehicle && (
-                                        <p style={{ color: 'var(--color-danger)', fontSize: '0.8rem', marginTop: '0.5rem' }}>
+                                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.8rem', marginTop: '0.5rem', fontStyle: 'italic' }}>
                                             Cancellation unavailable (Departs in less than 24 hours)
                                         </p>
                                     )}
@@ -79,14 +79,15 @@ const MyBookingsPage = () => {
                                 <button
                                     onClick={() => handleCancel(booking._id)}
                                     disabled={!canCancel}
-                                    className={`form-button ${canCancel ? 'btn-red' : 'btn-disabled'}`}
+                                    className="form-button"
                                     style={{ 
-                                        background: canCancel ? 'linear-gradient(135deg, #f43f5e, #e11d48)' : 'var(--color-bg-tertiary)', 
+                                        background: canCancel ? 'var(--gradient-primary)' : 'var(--color-bg-tertiary)', 
                                         color: canCancel ? '#fff' : 'var(--color-text-secondary)',
                                         cursor: canCancel ? 'pointer' : 'not-allowed',
                                         marginTop: 'auto',
-                                        boxShadow: canCancel ? '0 0 15px rgba(244, 63, 94, 0.3)' : 'none',
-                                        border: 'none'
+                                        boxShadow: canCancel ? 'var(--shadow-glow)' : 'none',
+                                        border: 'none',
+                                        opacity: canCancel ? 1 : 0.5
                                     }}
                                 >
                                     Cancel Booking

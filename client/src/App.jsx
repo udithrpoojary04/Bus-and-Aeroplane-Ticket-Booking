@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -35,8 +36,10 @@ function App() {
           </Route>
         </Routes>
       </div>
+      <Footer />
     </>
   );
 }
 
 export default App;
+
