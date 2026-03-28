@@ -87,7 +87,7 @@ const BusPage = () => {
                                     </div>
                                     <button
                                         onClick={() => navigate(`/book/${vehicle._id}`)}
-                                        className="form-button btn-secondary"
+                                        className="form-button btn-secondary" style={{marginTop:"10px"}}
                                     >
                                         Select Seats
                                     </button>
